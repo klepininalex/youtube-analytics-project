@@ -20,27 +20,6 @@ class Channel:
         self.view_count = self.channel['items'][0]['statistics']['viewCount']
         self.description = self.channel['items'][0]['snippet']['description']
 
-    def print_info(self) -> None:
-        """Выводит в консоль информацию о канале."""
-        print(json.dumps(self.channel, indent=2, ensure_ascii=False))
-
-    @classmethod
-    def get_service(cls):
-        return cls.youtube
-
-    def to_json(self, filename):
-        with open(filename, 'w', encoding='utf-8') as f:
-            data = {
-                'channel_id': self.channel_id,
-                'title': self.title,
-                'url': self.url,
-                'video_count': self.video_count,
-                'subscribers': self.subscribers,
-                'view_count': self.view_count,
-                'description': self.description
-            }
-            json.dump(data, f)
-
     def __str__(self):
         return f'{self.title} ({self.url})'
 
@@ -64,3 +43,24 @@ class Channel:
 
     def __eq__(self, other_channel):
         return int(self.subscribers) == int(other_channel.subscribers)
+
+    def print_info(self) -> None:
+        """Выводит в консоль информацию о канале."""
+        print(json.dumps(self.channel, indent=2, ensure_ascii=False))
+
+    @classmethod
+    def get_service(cls):
+        return cls.youtube
+
+    def to_json(self, filename):
+        with open(filename, 'w', encoding='utf-8') as f:
+            data = {
+                'channel_id': self.channel_id,
+                'title': self.title,
+                'url': self.url,
+                'video_count': self.video_count,
+                'subscribers': self.subscribers,
+                'view_count': self.view_count,
+                'description': self.description
+            }
+            json.dump(data, f)
